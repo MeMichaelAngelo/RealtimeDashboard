@@ -17,8 +17,18 @@ app-main-page {
 
   .element {
     background-color: green;
+    height: 100px;
+    transition:
+      height 1s ease,
+      opacity 0.3s ease;
+
     &:last-child {
       background-color: red;
     }
+  }
+
+  //Hover to "stan końcowy" - tak ma wyglądać koniec animacji
+  .element:hover {
+    height: 300px;
   }
 }

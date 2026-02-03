@@ -11,6 +11,9 @@ import { ProjectInterface } from '../interfaces/project.interface';
 import { MatCardModule } from '@angular/material/card';
 import { ProjectProgressTypes } from '../enums/project-progress-types.enum';
 
+import { MatDialog } from '@angular/material/dialog';
+import { MainPageDialogComponent } from './dialog/main-page-dialog.component';
+
 @Component({
   selector: 'app-main-page',
   standalone: true,
@@ -32,6 +35,7 @@ export class MainPageComponent implements OnInit {
   constructor(
     private service: MainService,
     private socket: SocketService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -58,5 +62,13 @@ export class MainPageComponent implements OnInit {
     //     this.projects[index] = updated;
     //   }
     // });
+  }
+
+  openDialog(project: ProjectInterface): void {
+    const dialogRef = this.dialog.open(MainPageDialogComponent, {
+      width: '80%',
+      height: '60%',
+      data: project,
+    });
   }
 }
