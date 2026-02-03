@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="single-card">
+    <h3>FREE</h3>
+    @for (p of freeProjects; track p._id) {
+      <mat-card appearance="outlined" class="element">
+        <mat-card-header>
+          <mat-card-title> {{ p.name }}</mat-card-title>
+          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    }
+  </div>
+
+  <div class="single-card">
+    <h3>Active</h3>
+    @for (p of activeProjects; track p._id) {
+      <mat-card appearance="outlined" class="element">
+        <mat-card-header>
+          <mat-card-title> {{ p.name }}</mat-card-title>
+          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    }
+  </div>
+
+  <div class="single-card">
+    <h3>Paused</h3>
+    @for (p of pausedProjects; track p._id) {
+      <mat-card appearance="outlined" class="element">
+        <mat-card-header>
+          <mat-card-title> {{ p.name }}</mat-card-title>
+          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    }
+  </div>
+
+  <div class="single-card">
+    <h3>Done</h3>
+    @for (p of doneProjects; track p._id) {
+      <mat-card appearance="outlined" class="element">
+        <mat-card-header>
+          <mat-card-title> {{ p.name }}</mat-card-title>
+          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    }
+  </div>
+</div>

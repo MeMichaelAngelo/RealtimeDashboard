@@ -1,0 +1,24 @@
+app-main-page {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .single-card {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-right: 10px;
+  }
+
+  .element {
+    background-color: green;
+    &:last-child {
+      background-color: red;
+    }
+  }
+}
