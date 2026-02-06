@@ -4,17 +4,23 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+
 import { MainService } from '../main-service/main.service';
 import { SocketService } from '../../socket.service';
-import { CommonModule } from '@angular/common';
 import { ProjectInterface } from '../interfaces/project.interface';
-import { MatCardModule } from '@angular/material/card';
 import { ProjectProgressTypes } from '../enums/project-progress-types.enum';
+
+import { MatDialog } from '@angular/material/dialog';
+import { MainPageDialogComponent } from './dialog/main-page-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule],
   providers: [MainService],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
@@ -24,31 +30,31 @@ import { ProjectProgressTypes } from '../enums/project-progress-types.enum';
 export class MainPageComponent implements OnInit {
   projects: ProjectInterface[] = [];
   progressTypes = Object.values(ProjectProgressTypes);
-  freeProjects: ProjectInterface[] = [];
-  activeProjects: ProjectInterface[] = [];
-  pausedProjects: ProjectInterface[] = [];
-  doneProjects: ProjectInterface[] = [];
+  ProjectProgressTypes = ProjectProgressTypes;
+  readonly statuses = Object.values(ProjectProgressTypes); //Przydatne dla @for HTML
+  projectsByStatus: Record<ProjectProgressTypes, ProjectInterface[]> = {
+    [ProjectProgressTypes.FREE]: [],
+    [ProjectProgressTypes.ACTIVE]: [],
+    [ProjectProgressTypes.PAUSED]: [],
+    [ProjectProgressTypes.DONE]: [],
+  };
 
   constructor(
     private service: MainService,
     private socket: SocketService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
-    this.service.getProjects().subscribe((data) => {
-      this.freeProjects = data.filter(
-        (p) => p.status === ProjectProgressTypes.FREE,
-      );
-      this.activeProjects = data.filter(
-        (p) => p.status === ProjectProgressTypes.ACTIVE,
-      );
-      this.pausedProjects = data.filter(
-        (p) => p.status === ProjectProgressTypes.PAUSED,
-      );
-      this.doneProjects = data.filter(
-        (p) => p.status === ProjectProgressTypes.DONE,
-      );
+    this.service.getProjects().subscribe((projects) => {
+      for (const project of projects) {
+        this.projectsByStatus[project.status].push(project);
+      }
     });
+
+    // setTimeout(() => {
+    //   debugger;
+    // }, 3000);
 
     // this.socket.onProjectUpdated().subscribe((updated) => {
     //   console.log(updated);
@@ -58,5 +64,13 @@ export class MainPageComponent implements OnInit {
     //     this.projects[index] = updated;
     //   }
     // });
+  }
+
+  openDialog(project: ProjectInterface): void {
+    const dialogRef = this.dialog.open(MainPageDialogComponent, {
+      width: '80%',
+      height: '60%',
+      data: project,
+    });
   }
 }

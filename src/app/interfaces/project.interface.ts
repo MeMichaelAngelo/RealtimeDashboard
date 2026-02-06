@@ -5,5 +5,6 @@ export interface ProjectInterface {
   name: string;
   status: ProjectProgressTypes;
   progress: number;
+  description: string;
   updatedAt?: Date;
 }
