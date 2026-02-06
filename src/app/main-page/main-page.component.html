@@ -1,50 +1,88 @@
 <div class="container">
-  <div class="single-card">
-    <h3>FREE</h3>
-    @for (p of freeProjects; track p._id) {
-      <mat-card appearance="outlined" class="element">
-        <mat-card-header>
-          <mat-card-title> {{ p.name }}</mat-card-title>
-          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
-          <button matButton="elevated" (click)="openDialog(p)">Pick one</button>
-        </mat-card-header>
-      </mat-card>
-    }
-  </div>
+  @for (status of statuses; track status) {
+    <div class="status-category">
+      <h3>{{ status | titlecase }}</h3>
+      <div class="category-background">
+        @for (project of projectsByStatus[status]; track project._id) {
+          @if (status === ProjectProgressTypes.FREE) {
+            <mat-card appearance="outlined" class="element">
+              <mat-card-header>
+                <mat-card-title class="test">{{ project.name }}</mat-card-title>
+                <button mat-mini-fab (click)="openDialog(project)">
+                  <mat-icon
+                    aria-hidden="false"
+                    aria-label="Open dialog with this task"
+                    fontIcon="search"
+                  ></mat-icon>
+                </button>
+              </mat-card-header>
+              <mat-card-content class="card-content">
+                {{ project.description }}
+              </mat-card-content>
+            </mat-card>
+          }
 
-  <div class="single-card">
-    <h3>Active</h3>
-    @for (p of activeProjects; track p._id) {
-      <mat-card appearance="outlined" class="element">
-        <mat-card-header>
-          <mat-card-title> {{ p.name }}</mat-card-title>
-          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    }
-  </div>
+          @if (status === ProjectProgressTypes.ACTIVE) {
+            <mat-card appearance="outlined" class="element">
+              <mat-card-header>
+                <mat-card-title class="test">{{ project.name }}</mat-card-title>
+                <button mat-mini-fab (click)="openDialog(project)">
+                  <mat-icon
+                    aria-hidden="false"
+                    aria-label="Open dialog with this task"
+                    fontIcon="search"
+                  ></mat-icon>
+                </button>
+              </mat-card-header>
+              <mat-card-content class="card-content">
+                {{ project.description }}
+              </mat-card-content>
+            </mat-card>
+          }
 
-  <div class="single-card">
-    <h3>Paused</h3>
-    @for (p of pausedProjects; track p._id) {
-      <mat-card appearance="outlined" class="element">
-        <mat-card-header>
-          <mat-card-title> {{ p.name }}</mat-card-title>
-          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    }
-  </div>
+          @if (status === ProjectProgressTypes.PAUSED) {
+            <mat-card appearance="outlined" class="element">
+              <mat-card-header>
+                <mat-card-title class="test">{{ project.name }}</mat-card-title>
+                <button mat-mini-fab (click)="openDialog(project)">
+                  <mat-icon
+                    aria-hidden="false"
+                    aria-label="Open dialog with this task"
+                    fontIcon="search"
+                  ></mat-icon>
+                </button>
+              </mat-card-header>
+              <mat-card-content class="card-content">
+                {{ project.description }}
+              </mat-card-content>
+            </mat-card>
+          }
 
-  <div class="single-card">
-    <h3>Done</h3>
-    @for (p of doneProjects; track p._id) {
-      <mat-card appearance="outlined" class="element">
-        <mat-card-header>
-          <mat-card-title> {{ p.name }}</mat-card-title>
-          <mat-card-subtitle>{{ p.status }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    }
-  </div>
+          @if (status === ProjectProgressTypes.DONE) {
+            <mat-card appearance="outlined" class="element">
+              <mat-card-header>
+                <mat-card-title class="test">{{ project.name }}</mat-card-title>
+                <button mat-mini-fab (click)="openDialog(project)">
+                  <mat-icon
+                    aria-hidden="false"
+                    aria-label="Open dialog with this task"
+                    fontIcon="search"
+                  ></mat-icon>
+                </button>
+              </mat-card-header>
+              <mat-card-content class="card-content">
+                {{ project.description }}
+              </mat-card-content>
+            </mat-card>
+          }
+        }
+      </div>
+    </div>
+  }
 </div>
+<!-- TODO:
+         - poprawa długości teł każdej z kategorii podczas podglądu kursorem (klasa category-background)
+         - poprawa klas wg standardu BEM
+         - zmiana kolorystyczna szablonu strony głównej
+         - przygotowanie podglądu zadania za pomocą lupy
+         -->
