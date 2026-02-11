@@ -16,11 +16,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { MainPageDialogComponent } from './dialog/main-page-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+  ],
   providers: [MainService],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
@@ -71,6 +78,7 @@ export class MainPageComponent implements OnInit {
       width: '80%',
       height: '60%',
       data: project,
+      panelClass: 'main-page-dialog-panel',
     });
   }
 }
