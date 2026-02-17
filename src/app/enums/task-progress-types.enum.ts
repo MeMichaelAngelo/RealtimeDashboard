@@ -1,4 +1,4 @@
-export enum ProjectProgressTypes {
+export enum TaskProgressTypes {
   FREE = 'free',
   ACTIVE = 'active',
   PAUSED = 'paused',

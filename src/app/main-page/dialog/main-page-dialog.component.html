@@ -1,14 +1,14 @@
 <div class="dialog">
-  <div class="dialog__header">{{ data.name }}</div>
-  <div class="dialog__project-progress">
-    <div class="dialog__project-progress--left-side">{{ data.progress }} %</div>
-    <div class="dialog__project-progress--right-side">
+  <div class="dialog__header">{{ task.name }}</div>
+  <div class="dialog__task-progress">
+    <div class="dialog__task-progress--left-side">{{ task.progress }} %</div>
+    <div class="dialog__task-progress--right-side">
       <mat-progress-bar
         mode="determinate"
-        [value]="data.progress"
+        [value]="task.progress"
       ></mat-progress-bar>
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div class="dialog__description">{{ data.description }}</div>
+  <div class="dialog__description">{{ task.description }}</div>
 </div>

@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { ProjectInterface } from '../../interfaces/project.interface';
+import { TaskInterface } from '../../interfaces/task.interface';
 
 @Component({
   selector: 'app-main-page-dialog',
@@ -23,5 +23,5 @@ import { ProjectInterface } from '../../interfaces/project.interface';
   encapsulation: ViewEncapsulation.None,
 })
 export class MainPageDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ProjectInterface) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public task: TaskInterface) {}
 }

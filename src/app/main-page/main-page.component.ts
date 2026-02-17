@@ -9,8 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 
 import { MainService } from '../main-service/main.service';
 import { SocketService } from '../../socket.service';
-import { ProjectInterface } from '../interfaces/project.interface';
-import { ProjectProgressTypes } from '../enums/project-progress-types.enum';
+import { TaskInterface } from '../interfaces/task.interface';
+import { TaskProgressTypes } from '../enums/task-progress-types.enum';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MainPageDialogComponent } from './dialog/main-page-dialog.component';
@@ -35,15 +35,15 @@ import { MatDividerModule } from '@angular/material/divider';
   encapsulation: ViewEncapsulation.None,
 })
 export class MainPageComponent implements OnInit {
-  projects: ProjectInterface[] = [];
-  progressTypes = Object.values(ProjectProgressTypes);
-  ProjectProgressTypes = ProjectProgressTypes;
-  readonly statuses = Object.values(ProjectProgressTypes); //Przydatne dla @for HTML
-  projectsByStatus: Record<ProjectProgressTypes, ProjectInterface[]> = {
-    [ProjectProgressTypes.FREE]: [],
-    [ProjectProgressTypes.ACTIVE]: [],
-    [ProjectProgressTypes.PAUSED]: [],
-    [ProjectProgressTypes.DONE]: [],
+  tasks: TaskInterface[] = [];
+  progressTypes = Object.values(TaskProgressTypes);
+  TaskProgressTypes = TaskProgressTypes;
+  readonly statuses = Object.values(TaskProgressTypes);
+  tasksByStatus: Record<TaskProgressTypes, TaskInterface[]> = {
+    [TaskProgressTypes.FREE]: [],
+    [TaskProgressTypes.ACTIVE]: [],
+    [TaskProgressTypes.PAUSED]: [],
+    [TaskProgressTypes.DONE]: [],
   };
 
   constructor(
@@ -53,31 +53,22 @@ export class MainPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.service.getProjects().subscribe((projects) => {
-      for (const project of projects) {
-        this.projectsByStatus[project.status].push(project);
-      }
-    });
-
-    // setTimeout(() => {
-    //   debugger;
-    // }, 3000);
-
-    // this.socket.onProjectUpdated().subscribe((updated) => {
-    //   console.log(updated);
-    //   const index = this.projects.findIndex((p) => p._id === updated._id);
-
-    //   if (index !== -1) {
-    //     this.projects[index] = updated;
-    //   }
-    // });
+    this.fetchAllTasks();
   }
 
-  openDialog(project: ProjectInterface): void {
+  fetchAllTasks(): void {
+    this.service.getAllTasks().subscribe((tasksList) => {
+      for (const task of tasksList) {
+        this.tasksByStatus[task.status].push(task);
+      }
+    });
+  }
+
+  openDialog(task: TaskInterface): void {
     const dialogRef = this.dialog.open(MainPageDialogComponent, {
       width: '80%',
       height: '60%',
-      data: project,
+      data: task,
       panelClass: 'main-page-dialog-panel',
     });
   }

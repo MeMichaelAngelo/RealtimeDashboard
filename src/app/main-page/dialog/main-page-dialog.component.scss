@@ -8,19 +8,19 @@ app-main-page-dialog {
     margin-bottom: 20px;
   }
 
-  .dialog__project-progress {
+  .dialog__task-progress {
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
 
-  .dialog__project-progress--left-side {
+  .dialog__task-progress--left-side {
     width: 10%;
     position: relative;
     bottom: 9px;
   }
 
-  .dialog__project-progress--right-side {
+  .dialog__task-progress--right-side {
     width: 90%;
   }
 
@@ -44,18 +44,12 @@ app-main-page-dialog {
 .main-page-dialog-panel {
   .mat-mdc-dialog-surface {
     overflow-y: auto;
-
-    // OFF dla:
-    // - Chrome / Safari
     &::-webkit-scrollbar {
       width: 0;
       height: 0;
     }
 
-    // - Firefox
     scrollbar-width: none;
-
-    // - IE / Edge
     -ms-overflow-style: none;
   }
 }
