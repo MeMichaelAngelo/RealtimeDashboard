@@ -2,87 +2,36 @@
   @for (status of statuses; track status) {
     <div class="status-category">
       <h3>{{ status | titlecase }}</h3>
-      <div class="category-background">
-        @for (project of projectsByStatus[status]; track project._id) {
-          @if (status === ProjectProgressTypes.FREE) {
-            <mat-card appearance="outlined" class="element">
-              <mat-card-header>
-                <mat-card-title class="test">{{ project.name }}</mat-card-title>
-                <button mat-mini-fab (click)="openDialog(project)">
-                  <mat-icon
-                    aria-hidden="false"
-                    aria-label="Open dialog with this task"
-                    fontIcon="search"
-                  ></mat-icon>
-                </button>
-              </mat-card-header>
-              <mat-card-content class="card-content">
-                {{ project.description }}
-              </mat-card-content>
-            </mat-card>
-          }
 
-          @if (status === ProjectProgressTypes.ACTIVE) {
-            <mat-card appearance="outlined" class="element">
-              <mat-card-header>
-                <mat-card-title class="test">{{ project.name }}</mat-card-title>
-                <button mat-mini-fab (click)="openDialog(project)">
-                  <mat-icon
-                    aria-hidden="false"
-                    aria-label="Open dialog with this task"
-                    fontIcon="search"
-                  ></mat-icon>
-                </button>
-              </mat-card-header>
-              <mat-card-content class="card-content">
-                {{ project.description }}
-              </mat-card-content>
-            </mat-card>
-          }
+      <div class="category">
+        @for (task of tasksByStatus[status]; track task._id) {
+          <mat-card appearance="outlined" class="category__card">
+            <mat-card-header>
+              <mat-card-title class="category__title">
+                {{ task.name }}
+              </mat-card-title>
 
-          @if (status === ProjectProgressTypes.PAUSED) {
-            <mat-card appearance="outlined" class="element">
-              <mat-card-header>
-                <mat-card-title class="test">{{ project.name }}</mat-card-title>
-                <button mat-mini-fab (click)="openDialog(project)">
-                  <mat-icon
-                    aria-hidden="false"
-                    aria-label="Open dialog with this task"
-                    fontIcon="search"
-                  ></mat-icon>
-                </button>
-              </mat-card-header>
-              <mat-card-content class="card-content">
-                {{ project.description }}
-              </mat-card-content>
-            </mat-card>
-          }
+              <button mat-mini-fab (click)="openDialog(task)">
+                <mat-icon
+                  aria-hidden="false"
+                  aria-label="Open dialog with this task"
+                  fontIcon="search"
+                ></mat-icon>
+              </button>
+            </mat-card-header>
 
-          @if (status === ProjectProgressTypes.DONE) {
-            <mat-card appearance="outlined" class="element">
-              <mat-card-header>
-                <mat-card-title class="test">{{ project.name }}</mat-card-title>
-                <button mat-mini-fab (click)="openDialog(project)">
-                  <mat-icon
-                    aria-hidden="false"
-                    aria-label="Open dialog with this task"
-                    fontIcon="search"
-                  ></mat-icon>
-                </button>
-              </mat-card-header>
-              <mat-card-content class="card-content">
-                {{ project.description }}
-              </mat-card-content>
-            </mat-card>
-          }
+            <mat-card-content class="category__content">
+              {{ task.description }}
+            </mat-card-content>
+          </mat-card>
+
+          <mat-divider></mat-divider>
         }
       </div>
     </div>
   }
 </div>
+
 <!-- TODO:
-         - poprawa długości teł każdej z kategorii podczas podglądu kursorem (klasa category-background)
-         - poprawa klas wg standardu BEM
          - zmiana kolorystyczna szablonu strony głównej
-         - przygotowanie podglądu zadania za pomocą lupy
          -->

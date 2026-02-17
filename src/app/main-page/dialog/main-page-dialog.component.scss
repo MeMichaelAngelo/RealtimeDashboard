@@ -1,0 +1,55 @@
+app-main-page-dialog {
+  .dialog {
+    margin: 20px;
+  }
+
+  .dialog__header {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .dialog__task-progress {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .dialog__task-progress--left-side {
+    width: 10%;
+    position: relative;
+    bottom: 9px;
+  }
+
+  .dialog__task-progress--right-side {
+    width: 90%;
+  }
+
+  .dialog__description {
+    margin-top: 20px;
+  }
+
+  .mat-mdc-dialog-surface {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}
+
+//Poza ciałem app-main-page-dialog, bo to niżej nie dziedziczy po tym komponencie, tylko po rodzicu
+.main-page-dialog-panel {
+  .mat-mdc-dialog-surface {
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}
