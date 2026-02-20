@@ -1,3 +1,3 @@
 MainPageComponent:
 - Wpływ % danego użytkownika na projekt (po stworzeniu systemu logowania)
-- 
+- Wąskie menu kolumnowe z ikonami. Po najechaniu pojawia się tekst pod obrazem gdzie prowadzi odnośnik
