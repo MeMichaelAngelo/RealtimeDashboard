@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   OnInit,
+  signal,
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +19,7 @@ import { MainPageDialogComponent } from './dialog/main-page-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { TaskStatusColumnComponent } from './task-status-column/task-status-column.component';
 
 @Component({
   selector: 'app-main-page',
@@ -27,24 +30,34 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
+    TaskStatusColumnComponent,
   ],
   providers: [MainService],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
-  //changeDetection: ChangeDetectionStrategy.OnPush, <--- psuje to pętlę @for
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class MainPageComponent implements OnInit {
-  tasks: TaskInterface[] = [];
   progressTypes = Object.values(TaskProgressTypes);
   TaskProgressTypes = TaskProgressTypes;
-  readonly statuses = Object.values(TaskProgressTypes);
-  tasksByStatus: Record<TaskProgressTypes, TaskInterface[]> = {
-    [TaskProgressTypes.FREE]: [],
-    [TaskProgressTypes.ACTIVE]: [],
-    [TaskProgressTypes.PAUSED]: [],
-    [TaskProgressTypes.DONE]: [],
-  };
+  statuses = Object.values(TaskProgressTypes);
+
+  tasks = signal<TaskInterface[]>([]);
+  tasksByStatus = computed(() => {
+    const result: Record<TaskProgressTypes, TaskInterface[]> = {
+      [TaskProgressTypes.FREE]: [],
+      [TaskProgressTypes.ACTIVE]: [],
+      [TaskProgressTypes.PAUSED]: [],
+      [TaskProgressTypes.DONE]: [],
+    };
+
+    for (const task of this.tasks()) {
+      result[task.status] = [...result[task.status], task];
+    }
+
+    return result;
+  });
 
   constructor(
     private service: MainService,
@@ -57,19 +70,8 @@ export class MainPageComponent implements OnInit {
   }
 
   fetchAllTasks(): void {
-    this.service.getAllTasks().subscribe((tasksList) => {
-      for (const task of tasksList) {
-        this.tasksByStatus[task.status].push(task);
-      }
-    });
-  }
-
-  openDialog(task: TaskInterface): void {
-    const dialogRef = this.dialog.open(MainPageDialogComponent, {
-      width: '80%',
-      height: '60%',
-      data: task,
-      panelClass: 'main-page-dialog-panel',
+    this.service.getAllTasks().subscribe((tasks) => {
+      this.tasks.set(tasks);
     });
   }
 }
