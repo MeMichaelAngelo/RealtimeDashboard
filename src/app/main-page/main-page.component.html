@@ -4,29 +4,10 @@
       <h3>{{ status | titlecase }}</h3>
 
       <div class="category">
-        @for (task of tasksByStatus[status]; track task._id) {
-          <mat-card appearance="outlined" class="category__card">
-            <mat-card-header>
-              <mat-card-title class="category__title">
-                {{ task.name }}
-              </mat-card-title>
-
-              <button mat-mini-fab (click)="openDialog(task)">
-                <mat-icon
-                  aria-hidden="false"
-                  aria-label="Open dialog with this task"
-                  fontIcon="search"
-                ></mat-icon>
-              </button>
-            </mat-card-header>
-
-            <mat-card-content class="category__content">
-              {{ task.description }}
-            </mat-card-content>
-          </mat-card>
-
-          <mat-divider></mat-divider>
-        }
+        <app-task-status-column
+          [tasks]="tasksByStatus()[status]"
+          [status]="status"
+        ></app-task-status-column>
       </div>
     </div>
   }

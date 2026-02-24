@@ -1,0 +1,31 @@
+@for (task of tasks(); track task._id) {
+  <mat-card
+    [ngClass]="{
+      'card--free-status-column': status() === TaskProgressTypes.FREE,
+      'card--active-status-column': status() === TaskProgressTypes.ACTIVE,
+      'card--paused-status-column': status() === TaskProgressTypes.PAUSED,
+      'card--done-status-column': status() === TaskProgressTypes.DONE,
+    }"
+    appearance="outlined"
+    class="card"
+  >
+    <mat-card-header>
+      <mat-card-title class="card__title">
+        {{ task.name }}
+      </mat-card-title>
+
+      <button mat-mini-fab (click)="openDialog(task)">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Open dialog with this task"
+          fontIcon="search"
+        ></mat-icon>
+      </button>
+    </mat-card-header>
+
+    <mat-card-content class="card__content">
+      {{ task.description }}
+    </mat-card-content>
+  </mat-card>
+  <mat-divider></mat-divider>
+}

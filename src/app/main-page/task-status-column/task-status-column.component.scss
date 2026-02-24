@@ -1,0 +1,94 @@
+app-task-status-column {
+  .card {
+    height: 100px;
+    transition:
+      height 1s ease,
+      opacity 0.3s ease;
+
+    &:hover {
+      height: 300px;
+    }
+  }
+
+  .card--free-status-column {
+    background-color: #ff5757;
+    scrollbar-color: #ff5757 black;
+  }
+
+  .card--active-status-column {
+    background-color: #9dff9d;
+    scrollbar-color: #9dff9d black;
+  }
+
+  .card--paused-status-column {
+    background-color: #707070;
+    scrollbar-color: #707070 black;
+  }
+
+  .card--done-status-column {
+    background-color: #55cce4;
+    scrollbar-color: #55cce4 black;
+  }
+
+  .mat-mdc-card-outlined {
+    border-width: 0;
+  }
+
+  .card__title {
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    text-align: left;
+  }
+
+  .card:hover .card__title:hover {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    overflow: visible;
+  }
+
+  .card__content {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    text-align: left;
+
+    transition:
+      opacity 0.3s ease,
+      max-height 0.3s ease;
+
+    transition-delay: 0.2s;
+  }
+
+  .card:hover .card__content {
+    opacity: 1;
+    max-height: 500px;
+    overflow-y: auto;
+
+    transition-delay: 0.2s;
+  }
+
+  mat-card {
+    margin: 8px 0;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  mat-card > mat-card-content {
+    margin-top: 20px;
+  }
+
+  mat-card-header {
+    position: relative;
+    justify-content: space-between;
+  }
+
+  mat-divider:last-child {
+    display: none;
+  }
+}
