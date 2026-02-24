@@ -7,18 +7,18 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDialog } from '@angular/material/dialog';
 
 import { MainService } from '../main-service/main.service';
 import { SocketService } from '../../socket.service';
 import { TaskInterface } from '../interfaces/task.interface';
 import { TaskProgressTypes } from '../enums/task-progress-types.enum';
 
-import { MatDialog } from '@angular/material/dialog';
-import { MainPageDialogComponent } from './dialog/main-page-dialog.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
 import { TaskStatusColumnComponent } from './task-status-column/task-status-column.component';
 
 @Component({

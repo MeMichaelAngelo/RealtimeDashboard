@@ -4,18 +4,17 @@ import {
   ViewEncapsulation,
   input,
 } from '@angular/core';
-
 import { NgClass } from '@angular/common';
-
-import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
-import { TaskInterface } from '../../interfaces/task.interface';
-import { MainPageDialogComponent } from '../dialog/main-page-dialog.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
+
+import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
+import { TaskInterface } from '../../interfaces/task.interface';
+import { MainPageDialogComponent } from '../dialog/main-page-dialog.component';
 
 @Component({
   selector: 'app-task-status-column',
