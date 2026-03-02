@@ -1,6 +1,6 @@
 export enum TaskProgressTypes {
-  FREE = 'free',
-  ACTIVE = 'active',
-  PAUSED = 'paused',
-  DONE = 'done',
+  FREE = 'Free',
+  ACTIVE = 'Active',
+  PAUSED = 'Paused',
+  DONE = 'Done',
 }

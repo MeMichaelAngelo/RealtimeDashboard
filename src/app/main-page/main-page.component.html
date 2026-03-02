@@ -1,4 +1,8 @@
 <div class="container">
+  <button (click)="openCreateNewTaskDialog()">
+    <mat-icon>add</mat-icon>New task
+  </button>
+  <!-- TEMP-->
   @for (status of statuses; track status) {
     <div class="status-category">
       <h3>{{ status | titlecase }}</h3>
@@ -12,7 +16,3 @@
     </div>
   }
 </div>
-
-<!-- TODO:
-         - zmiana kolorystyczna szablonu strony głównej
-         -->
