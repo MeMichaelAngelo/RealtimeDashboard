@@ -15,11 +15,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
 
 import { MainService } from '../main-service/main.service';
-import { SocketService } from '../../socket.service';
 import { TaskInterface } from '../interfaces/task.interface';
 import { TaskProgressTypes } from '../enums/task-progress-types.enum';
 
 import { TaskStatusColumnComponent } from './task-status-column/task-status-column.component';
+import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
 
 @Component({
   selector: 'app-main-page',
@@ -53,7 +53,7 @@ export class MainPageComponent implements OnInit {
     };
 
     for (const task of this.tasks()) {
-      result[task.status] = [...result[task.status], task];
+      result[task?.status] = [...result[task?.status], task];
     }
 
     return result;
@@ -61,7 +61,6 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private service: MainService,
-    private socket: SocketService,
     private dialog: MatDialog,
   ) {}
 
@@ -72,6 +71,13 @@ export class MainPageComponent implements OnInit {
   fetchAllTasks(): void {
     this.service.getAllTasks().subscribe((tasks) => {
       this.tasks.set(tasks);
+    });
+  }
+
+  openCreateNewTaskDialog(): void {
+    const dialogRef = this.dialog.open(CreateTaskDialogComponent, {
+      height: '80%',
+      width: '80%',
     });
   }
 }
