@@ -1,20 +1,18 @@
-<form [formGroup]="createTaskForm" (ngSubmit)="onSubmit()" class="container">
+<form [formGroup]="createTaskForm" class="container" (ngSubmit)="onSubmit()">
   <div class="container__form">
     <h3>Add a new task</h3>
     <mat-form-field class="container__form-control--long">
       <mat-label>Task name</mat-label>
       <input matInput formControlName="name" />
-      <!-- walidacja -->
-      <!-- @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
-      <mat-error>Please enter a valid email address</mat-error>
-    }
-    @if (emailFormControl.hasError('required')) {
-      <mat-error>Email is <strong>required</strong></mat-error>
-    } -->
     </mat-form-field>
+    <app-form-validation
+      [control]="createTaskForm.get('name')!"
+    ></app-form-validation>
 
     <div class="container__form-control--short--gap">
-      <mat-form-field class="container__form-control--short">
+      <mat-form-field
+        class="container__form-control--short container__form__status"
+      >
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">
           @for (status of statuses; track status) {
@@ -22,27 +20,32 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="container__form-control--short">
-        <mat-label>Progress</mat-label>
-        <input type="number" matInput formControlName="progress" />
-      </mat-form-field>
+
+      <div class="container__form-control--short">
+        <mat-form-field>
+          <mat-label>Progress</mat-label>
+          <input type="number" matInput formControlName="progress" />
+        </mat-form-field>
+        <app-form-validation
+          [control]="createTaskForm.get('progress')!"
+        ></app-form-validation>
+      </div>
     </div>
 
     <mat-form-field class="container__form-control--long">
       <mat-label>Description</mat-label>
-      <textarea
-        matInput
-        formControlName="description"
-        class="container__form-control__textarea"
-      ></textarea>
+      <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
+    <app-form-validation
+      [control]="createTaskForm.get('description')!"
+    ></app-form-validation>
+
     <div class="container__form__button">
       <button
         mat-flat-button
         type="submit"
         class="container__form--send"
         [disabled]="!createTaskForm.valid"
-        (click)="onSubmit()"
       >
         Submit
       </button>

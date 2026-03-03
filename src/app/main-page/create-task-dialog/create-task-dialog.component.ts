@@ -18,7 +18,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MainService } from '../../main-service/main.service';
+
 import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
+import { CreateTaskFormValidationComponent } from './create-task-form-validation/create-task-form-validation';
 
 @Component({
   selector: 'app-create-task-dialog',
@@ -32,6 +34,7 @@ import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    CreateTaskFormValidationComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -51,10 +54,17 @@ export class CreateTaskDialogComponent implements OnInit {
 
   initForm(): void {
     this.createTaskForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(150)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(150),
+        ],
+      ],
       status: [TaskProgressTypes.FREE, [Validators.required]],
       progress: [
-        '',
+        0,
         [Validators.required, Validators.min(0), Validators.max(100)],
       ],
       description: [
@@ -72,7 +82,7 @@ export class CreateTaskDialogComponent implements OnInit {
     const filledForm = this.createTaskForm.value;
     if (!filledForm) return;
     this.service.createNewTask(filledForm).subscribe((response) => {
-      console.log(response);
+      //Dodać snackbar z info o powodzeniu lub niepowodzeniu przy tworzeniu zadania
       //setinterval na 0.5s z zamknięciem modala
     });
   }
