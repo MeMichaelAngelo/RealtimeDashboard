@@ -1,0 +1,28 @@
+@if (control().invalid && (control().dirty || control().touched)) {
+<!-- Common requirements -->
+@if(control().errors?.['required']) {
+<div class="error">Field is <strong>required*</strong></div>
+}
+<!-- Min text length -->
+@if (control().errors?.['minlength']) {
+<div class="error">
+  Minimum length:
+  <strong
+    >{{ control().errors?.['minlength']?.requiredLength }} characters.</strong
+  >
+</div>
+}
+<!-- Maks text length -->
+@if (control().errors?.['maxlength']) {
+<div class="error">
+  Maximum length: {{ control().errors?.['maxlength']?.requiredLength }}
+</div>
+}
+<!-- Min number value -->
+@if (control().errors?.['min']) {
+<div class="error">Min length: {{ control().errors?.['min']?.min }}</div>
+}
+<!-- Max number value -->
+@if (control().errors?.['max']) {
+<div class="error">Max length: {{ control().errors?.['max']?.max }}</div>
+} }
