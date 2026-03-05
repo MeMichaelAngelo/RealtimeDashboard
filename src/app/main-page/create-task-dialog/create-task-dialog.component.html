@@ -1,4 +1,8 @@
-<form [formGroup]="createTaskForm" class="container" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="createTaskForm"
+  class="container"
+  (ngSubmit)="onSubmit($event)"
+>
   <div class="container__form">
     <h3>Add a new task</h3>
     <mat-form-field class="container__form-control--long">

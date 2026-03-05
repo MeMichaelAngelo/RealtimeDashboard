@@ -9,7 +9,7 @@ app-create-task-dialog {
   .container__form {
     width: 90%;
     position: absolute;
-    top: 12%;
+    top: 8%;
     left: 5%;
   }
 
@@ -45,11 +45,14 @@ app-create-task-dialog {
     width: 100%;
   }
 
+  textarea {
+    max-height: 120px;
+  }
+
   .mat-mdc-text-field-wrapper {
     height: 30%;
   }
 
-  //do sprawdzenia
   .mat-mdc-form-field-bottom-align {
     display: none;
   }

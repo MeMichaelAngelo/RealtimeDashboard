@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
@@ -16,11 +17,13 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { MainService } from '../../main-service/main.service';
 
 import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
-import { CreateTaskFormValidationComponent } from './create-task-form-validation/create-task-form-validation';
+import { CreateTaskFormValidationComponent } from '../create-task-form-validation/create-task-form-validation';
 
 @Component({
   selector: 'app-create-task-dialog',
@@ -40,12 +43,15 @@ import { CreateTaskFormValidationComponent } from './create-task-form-validation
   encapsulation: ViewEncapsulation.None,
 })
 export class CreateTaskDialogComponent implements OnInit {
+  private dialogRef = inject(MatDialogRef<CreateTaskDialogComponent>);
+
   createTaskForm!: FormGroup;
   statuses = Object.values(TaskProgressTypes);
 
   constructor(
     private fb: FormBuilder,
     public service: MainService,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
@@ -78,12 +84,17 @@ export class CreateTaskDialogComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  onSubmit(event: Event): void {
+    event.preventDefault();
     const filledForm = this.createTaskForm.value;
     if (!filledForm) return;
-    this.service.createNewTask(filledForm).subscribe((response) => {
-      //Dodać snackbar z info o powodzeniu lub niepowodzeniu przy tworzeniu zadania
-      //setinterval na 0.5s z zamknięciem modala
+
+    this.service.createNewTask(filledForm).subscribe(() => {
+      this.snackBar.open('Task created successfully!', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'end',
+      });
+      this.dialogRef.close(true);
     });
   }
 }

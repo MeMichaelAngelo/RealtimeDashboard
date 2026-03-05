@@ -79,5 +79,11 @@ export class MainPageComponent implements OnInit {
       height: '80%',
       width: '80%',
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.fetchAllTasks();
+      }
+    });
   }
 }

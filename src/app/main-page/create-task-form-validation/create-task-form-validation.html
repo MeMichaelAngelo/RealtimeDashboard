@@ -1,9 +1,9 @@
 @if (control().invalid && (control().dirty || control().touched)) {
-<!-- Wspólne wymogi -->
+<!-- Common requirements -->
 @if(control().errors?.['required']) {
 <div class="error">Field is <strong>required*</strong></div>
 }
-<!-- Min długość tekstowa -->
+<!-- Min text length -->
 @if (control().errors?.['minlength']) {
 <div class="error">
   Minimum length:
@@ -12,17 +12,17 @@
   >
 </div>
 }
-<!-- Maks długość tekstowa -->
+<!-- Maks text length -->
 @if (control().errors?.['maxlength']) {
 <div class="error">
   Maximum length: {{ control().errors?.['maxlength']?.requiredLength }}
 </div>
 }
-<!-- Min wielkość cyfrowa -->
+<!-- Min number value -->
 @if (control().errors?.['min']) {
 <div class="error">Min length: {{ control().errors?.['min']?.min }}</div>
 }
-<!-- Max wielkość cyfrowa -->
+<!-- Max number value -->
 @if (control().errors?.['max']) {
 <div class="error">Max length: {{ control().errors?.['max']?.max }}</div>
 } }
