@@ -1,10 +1,6 @@
-<form
-  [formGroup]="createTaskForm"
-  class="container"
-  (ngSubmit)="onSubmit($event)"
->
+<form [formGroup]="createTaskForm" class="container">
   <div class="container__form">
-    <h3>Add a new task</h3>
+    <div class="container__form__header">Add a new task</div>
     <mat-form-field class="container__form-control--long">
       <mat-label>Task name</mat-label>
       <input matInput formControlName="name" />
@@ -44,14 +40,26 @@
       [control]="createTaskForm.get('description')!"
     ></app-form-validation>
 
-    <div class="container__form__button">
+    <div class="container__form__buttons">
       <button
-        mat-flat-button
+        mat-stroked-button
+        disabled
         type="submit"
         class="container__form--send"
         [disabled]="!createTaskForm.valid"
+        [ngClass]="{
+          'container__form--send--enabled': createTaskForm.valid === true,
+        }"
+        (click)="onSubmit()"
       >
         Submit
+      </button>
+      <button
+        mat-flat-button
+        class="container__form--cancel"
+        (click)="closeDialog()"
+      >
+        Cancel
       </button>
     </div>
   </div>

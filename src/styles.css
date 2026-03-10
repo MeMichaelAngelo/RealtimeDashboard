@@ -6,6 +6,8 @@ body {
   --mdc-snackbar-supporting-text-color: #07ff5a;
   --mdc-snackbar-container-color: #4b4b4b;
   --mat-snack-bar-button-color: black;
+  --mdc-filled-button-container-color: red;
+  --mdc-outlined-button-label-text-color: white;
 }
 body {
   margin: 0;

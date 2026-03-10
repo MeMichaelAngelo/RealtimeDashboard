@@ -84,17 +84,20 @@ export class CreateTaskDialogComponent implements OnInit {
     });
   }
 
-  onSubmit(event: Event): void {
-    event.preventDefault();
+  onSubmit(): void {
     const filledForm = this.createTaskForm.value;
     if (!filledForm) return;
 
     this.service.createNewTask(filledForm).subscribe(() => {
       this.snackBar.open('Task created successfully!', 'Close', {
         duration: 3000,
-        horizontalPosition: 'end',
+        horizontalPosition: 'center',
       });
       this.dialogRef.close(true);
     });
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

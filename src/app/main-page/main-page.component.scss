@@ -8,7 +8,94 @@ app-main-page {
     height: 100%;
     display: flex;
     flex-direction: row;
+    position: relative;
     background-color: #333333;
+  }
+
+  .container__button {
+    margin: 0;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 3%;
+    right: 2%;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    font-size: 24px;
+    line-height: 32px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 16px 32px;
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    border: 0px;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .container__button--background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(
+      90deg,
+      #ff8038 0%,
+      #fc3aaf 30.43%,
+      #00ebeb 68.23%,
+      #db00ff 100%
+    );
+    background-size: 600% 600%;
+    border-radius: 50px;
+    animation: AnimateBorder 4s ease infinite;
+    -webkit-animation: AnimateBorder 4s ease infinite;
+    -moz-animation: AnimateBorder 4s ease infinite;
+    transform: translate(-2px, -2px);
+    transition: filter 1s ease-in;
+  }
+
+  @-webkit-keyframes AnimateBorder {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @-moz-keyframes AnimateBorder {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @keyframes AnimateBorder {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   .status-category {
