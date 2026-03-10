@@ -1,7 +1,11 @@
 <div class="container">
-  <button (click)="openCreateNewTaskDialog()">
-    <mat-icon>add</mat-icon>New task
-  </button>
+  <div class="container__button">
+    <button class="button" (click)="openCreateNewTaskDialog()">
+      <mat-icon>add</mat-icon>Task
+    </button>
+    <div class="container__button--background"></div>
+  </div>
+
   @for (status of statuses; track status) {
     <div class="status-category">
       <h3>{{ status | titlecase }}</h3>

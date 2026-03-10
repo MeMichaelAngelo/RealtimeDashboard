@@ -13,6 +13,10 @@ app-create-task-dialog {
     left: 5%;
   }
 
+  .container__form__header {
+    font-size: 28px;
+  }
+
   .container__form-control--short--gap {
     display: flex;
     column-gap: 5%;
@@ -28,13 +32,24 @@ app-create-task-dialog {
     height: 56px;
   }
 
-  .container__form__button {
+  .container__form__buttons {
     margin-top: 24px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
   }
 
   .container__form--send {
-    width: 50%;
+    width: 45%;
+  }
+
+  .container__form--send--enabled {
+    background-color: green;
+    color: white;
+  }
+
+  .container__form--cancel {
+    width: 45%;
+    background-color: red;
   }
 
   mat-form-field > .mat-mdc-text-field-wrapper {
@@ -46,7 +61,7 @@ app-create-task-dialog {
   }
 
   textarea {
-    max-height: 120px;
+    max-height: 95px;
   }
 
   .mat-mdc-text-field-wrapper {

@@ -78,6 +78,7 @@ export class MainPageComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateTaskDialogComponent, {
       height: '80%',
       width: '80%',
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
