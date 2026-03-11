@@ -10,5 +10,15 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div class="dialog__description">{{ task.description }}</div>
+  <div class="dialog__description">
+    <div class="dialog__description--left-side">{{ task.description }}</div>
+    <mat-divider
+      class="dialog__description__divider"
+      [vertical]="true"
+    ></mat-divider>
+    <div class="dialog__description--right-side">
+      <button mat-stroked-button (click)="test()">Edit</button>
+      <button mat-stroked-button (click)="deleteTask(task._id!)">Delete</button>
+    </div>
+  </div>
 </div>

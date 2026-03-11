@@ -14,6 +14,7 @@
         <app-task-status-column
           [tasks]="tasksByStatus()[status]"
           [status]="status"
+          (tasksUpdate)="fetchAllTasks()"
         ></app-task-status-column>
       </div>
     </div>

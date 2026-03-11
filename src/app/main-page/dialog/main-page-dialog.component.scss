@@ -25,7 +25,24 @@ app-main-page-dialog {
   }
 
   .dialog__description {
+    width: 100%;
     margin-top: 20px;
+    display: flex;
+  }
+
+  .dialog__description--left-side {
+    width: 70%;
+    height: 100vh;
+  }
+
+  .dialog__description__divider {
+    margin-right: 10px;
+  }
+
+  .dialog__description--right-side {
+    width: 27%;
+    display: flex;
+    flex-direction: column;
   }
 
   .mat-mdc-dialog-surface {
