@@ -3,6 +3,7 @@ import {
   Component,
   ViewEncapsulation,
   input,
+  output,
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
@@ -36,6 +37,7 @@ export class TaskStatusColumnComponent {
 
   tasks = input.required<TaskInterface[]>();
   status = input.required<TaskProgressTypes>();
+  tasksUpdate = output<void>();
 
   constructor(private dialog: MatDialog) {}
 
@@ -45,6 +47,12 @@ export class TaskStatusColumnComponent {
       height: '60%',
       data: task,
       panelClass: 'main-page-dialog-panel',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.tasksUpdate.emit();
+      }
     });
   }
 }
