@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { TaskInterface } from '../interfaces/task.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -9,23 +11,23 @@ export class MainService {
 
   constructor(private http: HttpClient) {}
 
-  getAllTasks() {
+  getAllTasks(): Observable<TaskInterface[]> {
     return this.http.get<TaskInterface[]>(this.api);
   }
 
-  getSingleTask(id: string) {
+  getSingleTask(id: string): Observable<TaskInterface> {
     return this.http.get<TaskInterface>(`${this.api}/${id}`);
   }
 
-  createNewTask(newTask: TaskInterface) {
+  createNewTask(newTask: TaskInterface): Observable<TaskInterface> {
     return this.http.post<TaskInterface>(this.api, newTask);
   }
 
-  //   updateProgress(id: string, progress: number) {
-  //     return this.http.patch(`${this.api}/${id}/progress`, { progress });
-  //   }
+  updateTask(id: string, task: TaskInterface): Observable<TaskInterface> {
+    return this.http.put<TaskInterface>(`${this.api}/${id}/task`, task);
+  }
 
-  deleteTask(id: string) {
+  deleteTask(id: string): Observable<TaskInterface> {
     return this.http.delete<TaskInterface>(`${this.api}/${id}`);
   }
 }

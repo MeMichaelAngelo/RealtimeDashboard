@@ -79,6 +79,7 @@ export class MainPageComponent implements OnInit {
       height: '80%',
       width: '80%',
       disableClose: true,
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

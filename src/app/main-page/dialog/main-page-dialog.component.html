@@ -1,24 +1,100 @@
-<div class="dialog">
-  <div class="dialog__header">{{ task.name }}</div>
-  <div class="dialog__task-progress">
-    <div class="dialog__task-progress--left-side">{{ task.progress }} %</div>
-    <div class="dialog__task-progress--right-side">
-      <mat-progress-bar
-        mode="determinate"
-        [value]="task.progress"
-      ></mat-progress-bar>
+<form [formGroup]="previewAndEditForm" class="dialog">
+  <ng-container *ngIf="!editMode; else editForm">
+    <div class="dialog__header">{{ task.name }}</div>
+
+    <div class="dialog__task-progress">
+      <div class="dialog__task-progress--left-side">{{ task.progress }} %</div>
+
+      <div class="dialog__task-progress--right-side">
+        <mat-progress-bar
+          mode="determinate"
+          [value]="task.progress"
+        ></mat-progress-bar>
+      </div>
     </div>
-  </div>
-  <mat-divider></mat-divider>
-  <div class="dialog__description">
-    <div class="dialog__description--left-side">{{ task.description }}</div>
-    <mat-divider
-      class="dialog__description__divider"
-      [vertical]="true"
-    ></mat-divider>
-    <div class="dialog__description--right-side">
-      <button mat-stroked-button (click)="test()">Edit</button>
-      <button mat-stroked-button (click)="deleteTask(task._id!)">Delete</button>
+    <mat-divider></mat-divider>
+    <div class="dialog__description">
+      <div class="dialog__description--left-side">{{ task.description }}</div>
+
+      <mat-divider
+        class="dialog__description__divider"
+        [vertical]="true"
+      ></mat-divider>
+      <div class="dialog__description--right-side">
+        <button mat-button (click)="swichToEditMode()">Edit</button>
+        <button mat-button (click)="deleteTask(task._id!)">Delete</button>
+      </div>
     </div>
-  </div>
-</div>
+  </ng-container>
+
+  <ng-template #editForm>
+    <div class="container">
+      <div class="container__form">
+        <div class="container__form__header">Edit task</div>
+        <mat-form-field class="container__form-control--long">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput formControlName="name" />
+        </mat-form-field>
+        <app-form-validation
+          [control]="previewAndEditForm.get('name')!"
+        ></app-form-validation>
+
+        <div class="container__form-control--short--gap">
+          <mat-form-field
+            class="container__form-control--short container__form__status"
+          >
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              @for (status of statuses; track status) {
+                <mat-option [value]="status">{{ status }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <div class="container__form-control--short">
+            <mat-form-field>
+              <mat-label>Progress</mat-label>
+              <input type="number" matInput formControlName="progress" />
+            </mat-form-field>
+            <app-form-validation
+              [control]="previewAndEditForm.get('progress')!"
+            ></app-form-validation>
+          </div>
+        </div>
+
+        <mat-form-field class="container__form-control--long">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <app-form-validation
+          [control]="previewAndEditForm.get('description')!"
+        ></app-form-validation>
+
+        <div class="container__form__buttons">
+          <button
+            mat-stroked-button
+            type="submit"
+            class="container__form--send"
+            [disabled]="!previewAndEditForm.valid"
+            [ngClass]="{
+              'container__form--send--enabled':
+                previewAndEditForm.valid === true,
+              'container__form--send--disabled':
+                previewAndEditForm.valid === false,
+            }"
+            (click)="updateForm()"
+          >
+            Submit
+          </button>
+          <button
+            mat-flat-button
+            class="container__form--cancel"
+            (click)="closeDialog()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</form>
