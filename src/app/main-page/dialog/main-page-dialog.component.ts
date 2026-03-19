@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { TaskInterface } from '../../interfaces/task.interface';
 import { MainService } from '../../main-service/main.service';
@@ -55,6 +56,7 @@ export class MainPageDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public task: TaskInterface,
     private service: MainService,
+    private snackBar: MatSnackBar,
     private fb: FormBuilder,
   ) {}
 
@@ -102,8 +104,10 @@ export class MainPageDialogComponent implements OnInit {
     this.service
       .updateTask(this.task._id!, this.previewAndEditForm.value)
       .subscribe((updatedTask) => {
-        console.log('updated:', updatedTask);
-
+        this.snackBar.open('Task updated successfully!', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+        });
         this.dialogRef.close(updatedTask);
         this.editMode = false;
       });
@@ -111,6 +115,10 @@ export class MainPageDialogComponent implements OnInit {
 
   deleteTask(id: string) {
     this.service.deleteTask(id).subscribe(() => {
+      this.snackBar.open('Task deleted successfully!', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+      });
       this.dialogRef.close(true);
     });
   }
