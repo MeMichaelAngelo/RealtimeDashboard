@@ -55,6 +55,89 @@ app-main-page-dialog {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
+
+  .dialog__edit__header {
+    font-size: 28px;
+  }
+
+  .container__form__status {
+    height: 56px;
+  }
+
+  .container {
+    background-color: #fffdfd;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .container__form {
+    width: 90%;
+    position: absolute;
+    top: 8%;
+    left: 5%;
+  }
+
+  .container__form__header {
+    font-size: 28px;
+  }
+
+  .container__form-control--short--gap {
+    display: flex;
+    column-gap: 5%;
+  }
+
+  .container__form-control--short,
+  .container__form-control--long {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .container__form__buttons {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .container__form--send--enabled {
+    width: 45%;
+    background-color: green;
+    color: white;
+  }
+
+  .container__form--send--disabled {
+    width: 45%;
+    background-color: rgb(138, 139, 138);
+    color: rgb(47, 47, 47);
+  }
+
+  .container__form--cancel {
+    width: 45%;
+  }
+
+  mat-form-field > .mat-mdc-text-field-wrapper {
+    border-radius: 30px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  textarea {
+    max-height: 95px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .mat-mdc-form-field-bottom-align {
+    display: none;
+  }
 }
 
 //Poza ciałem app-main-page-dialog, bo to niżej nie dziedziczy po tym komponencie, tylko po rodzicu

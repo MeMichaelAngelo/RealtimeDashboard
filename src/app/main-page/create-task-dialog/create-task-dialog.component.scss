@@ -62,6 +62,14 @@ app-create-task-dialog {
 
   textarea {
     max-height: 95px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .mat-mdc-text-field-wrapper {
