@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   OnInit,
   signal,
   ViewEncapsulation,
@@ -20,6 +21,7 @@ import { TaskProgressTypes } from '../enums/task-progress-types.enum';
 
 import { TaskStatusColumnComponent } from './task-status-column/task-status-column.component';
 import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
+import { tasksStore } from '../store/task.store';
 
 @Component({
   selector: 'app-main-page',
@@ -32,18 +34,19 @@ import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dial
     MatDividerModule,
     TaskStatusColumnComponent,
   ],
-  providers: [MainService],
+  //providers: [MainService],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class MainPageComponent implements OnInit {
-  progressTypes = Object.values(TaskProgressTypes);
   TaskProgressTypes = TaskProgressTypes;
   statuses = Object.values(TaskProgressTypes);
+  store = inject(tasksStore);
 
-  tasks = signal<TaskInterface[]>([]);
+  //tasks = signal<TaskInterface[]>([]);
+  tasks = this.store.tasks;
   tasksByStatus = computed(() => {
     const result: Record<TaskProgressTypes, TaskInterface[]> = {
       [TaskProgressTypes.FREE]: [],
@@ -65,14 +68,19 @@ export class MainPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetchAllTasks();
+    //this.fetchAllTasks();
+    this.loadAllTasks();
   }
 
-  fetchAllTasks(): void {
-    this.service.getAllTasks().subscribe((tasks) => {
-      this.tasks.set(tasks);
-    });
+  async loadAllTasks() {
+    await this.store.loadAllTasks();
   }
+
+  // fetchAllTasks(): void {
+  //   this.service.getAllTasks().subscribe((tasks) => {
+  //     this.tasks.set(tasks);
+  //   });
+  // }
 
   openCreateNewTaskDialog(): void {
     const dialogRef = this.dialog.open(CreateTaskDialogComponent, {
@@ -84,7 +92,8 @@ export class MainPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.fetchAllTasks();
+        //this.fetchAllTasks();
+        this.loadAllTasks();
       }
     });
   }
