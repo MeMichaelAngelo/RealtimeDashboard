@@ -1,4 +1,4 @@
-app-main-page-dialog {
+app-preview-dialog {
   .dialog {
     margin: 20px;
   }
@@ -33,6 +33,7 @@ app-main-page-dialog {
   .dialog__description--left-side {
     width: 70%;
     height: 100vh;
+    white-space: pre-line !important;
   }
 
   .dialog__description__divider {
@@ -140,8 +141,8 @@ app-main-page-dialog {
   }
 }
 
-//Poza ciałem app-main-page-dialog, bo to niżej nie dziedziczy po tym komponencie, tylko po rodzicu
-.main-page-dialog-panel {
+//Poza ciałem app-preview-dialog, bo to niżej nie dziedziczy po tym komponencie, tylko po rodzicu
+.preview-dialog-panel {
   .mat-mdc-dialog-surface {
     overflow-y: auto;
     &::-webkit-scrollbar {

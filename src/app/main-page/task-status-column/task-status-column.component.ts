@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
 import { TaskInterface } from '../../interfaces/task.interface';
 
-import { MainPageDialogComponent } from '../dialog/main-page-dialog.component';
+import { MainPageDialogComponent } from '../preview-dialog/preview-dialog.component';
 
 @Component({
   selector: 'app-task-status-column',
@@ -47,7 +47,6 @@ export class TaskStatusColumnComponent {
       width: '80%',
       height: '60%',
       data: task,
-      panelClass: 'main-page-dialog-panel',
       autoFocus: false,
     });
 

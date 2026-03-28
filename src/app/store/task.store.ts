@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { TaskInterface } from '../interfaces/task.interface';
+
 import {
   patchState,
   signalStore,
@@ -7,8 +7,10 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { MainService } from '../main-service/main.service';
 import { firstValueFrom } from 'rxjs';
+
+import { TaskInterface } from '../interfaces/task.interface';
+import { MainService } from '../main-service/main.service';
 
 type tasksState = {
   tasks: TaskInterface[];
@@ -27,9 +29,13 @@ export const tasksStore = signalStore(
   withMethods((store, mainService = inject(MainService)) => ({
     //GET
     async loadAllTasks() {
+      //patchState() - bezpieczne aktualizowanie elementów tasks (w tym wypadku) pod względem typów
+      //pierwszy parametr, to źródło prawdy (initialState), drugi parametr elementy aktualizowane
       patchState(store, { loading: true });
 
       try {
+        //firstValueFrom - zmienia typ Observable na Promise -> await znosi Promise -> zostaje sam typ tasks (TaskInterface[])
+        //Dodatkowo pobiera pierwszą wartość ze strumienia - GET zwraca tylko jedną wartość
         const tasks = await firstValueFrom(mainService.getAllTasks());
         patchState(store, { tasks, loading: false });
       } catch (error) {
@@ -79,8 +85,12 @@ export const tasksStore = signalStore(
     },
   })),
   withHooks({
+    //withHooks - odpowiednik lifecycle hooks z komponentu
     onInit(store) {
+      //onInit() - odpowiednik ngOnInit z komponentu z inicjalizacją metod ze store
       store.loadAllTasks();
     },
   }),
 );
+
+//TODO: Napisać sobie notki o metodach ze store i jak działają (może z przykładami - who knows)

@@ -29,7 +29,7 @@ import { CreateTaskFormValidationComponent } from '../create-task-form-validatio
 import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
 
 @Component({
-  selector: 'app-main-page-dialog',
+  selector: 'app-preview-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -42,8 +42,8 @@ import { TaskProgressTypes } from '../../enums/task-progress-types.enum';
     MatSelectModule,
     CreateTaskFormValidationComponent,
   ],
-  templateUrl: './main-page-dialog.component.html',
-  styleUrl: './main-page-dialog.component.scss',
+  templateUrl: './preview-dialog.component.html',
+  styleUrl: './preview-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
