@@ -14,14 +14,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 
 import { MainService } from '../main-service/main.service';
 import { TaskInterface } from '../interfaces/task.interface';
 import { TaskProgressTypes } from '../enums/task-progress-types.enum';
+import { tasksStore } from '../store/task.store';
 
 import { TaskStatusColumnComponent } from './task-status-column/task-status-column.component';
 import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
-import { tasksStore } from '../store/task.store';
 
 @Component({
   selector: 'app-main-page',

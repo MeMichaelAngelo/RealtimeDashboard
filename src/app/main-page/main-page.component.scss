@@ -4,12 +4,13 @@ app-main-page {
   }
 
   .container {
-    width: 100%;
+    width: calc(100% - 5rem);
     height: 100%;
     display: flex;
     flex-direction: row;
     position: relative;
     background-color: #333333;
+    justify-self: right;
   }
 
   .container__button {
