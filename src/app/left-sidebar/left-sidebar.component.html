@@ -1,0 +1,30 @@
+<div
+  class="sidenav"
+  [ngClass]="isLeftSidebarCollapsed() ? '' : 'sidenav-collapsed'"
+>
+  <div class="logo-container">
+    <button class="logo" (click)="toggleCollapse()">
+      <span class="material-symbols-outlined"> menu </span>
+    </button>
+  </div>
+
+  <div class="sidenav-nav">
+    @for (option of menuOptions; track $index) {
+      <li class="sidenav-nav-item">
+        <a
+          class="sidenav-nav-link"
+          [routerLink]="option.routeLink"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="material-symbols-outlined">
+            {{ option.icon }}
+          </span>
+        </a>
+        @if (!isLeftSidebarCollapsed()) {
+          <div class="logo-text">{{ option.label }}</div>
+        }
+      </li>
+    }
+  </div>
+</div>
