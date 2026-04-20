@@ -1,2 +1,12 @@
+<app-left-sidebar
+  [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
+  (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)"
+></app-left-sidebar>
+
+<div
+  class="sidebar-menu"
+  *ngIf="!isLeftSidebarCollapsed()"
+  (click)="changeIsLeftSidebarCollapsed(false)"
+></div>
+
 <app-main-page />
-<!-- Żółte teksty mogą być spowodowane poprzez usunięcie RouterOutlet z importu -->
