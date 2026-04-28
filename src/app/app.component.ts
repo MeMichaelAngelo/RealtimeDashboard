@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   isLeftSidebarCollapsed = signal<boolean>(true);
 
-  changeIsLeftSidebarCollapsed(isLeftSidebarCollapsed: boolean): void {
+  expandOrCollapseSidebar(isLeftSidebarCollapsed: boolean): void {
     return this.isLeftSidebarCollapsed.set(isLeftSidebarCollapsed);
   }
 }

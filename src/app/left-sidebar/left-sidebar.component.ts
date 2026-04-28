@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
@@ -12,7 +20,8 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class LeftSidebarComponent {
   isLeftSidebarCollapsed = input.required<boolean>();
-  changeIsLeftSidebarCollapsed = output<boolean>();
+  collapseSidebar = output<boolean>();
+  private el = inject(ElementRef);
 
   menuOptions = [
     {
@@ -37,7 +46,17 @@ export class LeftSidebarComponent {
     },
   ];
 
+  @HostListener('document:click', ['$event'])
+  collapseMenuAfterClick(event: MouseEvent) {
+    const mouseClickOnMenu = this.el.nativeElement.contains(event.target);
+    console.log(this.el.nativeElement);
+    console.log(event.target);
+    if (!mouseClickOnMenu && !this.isLeftSidebarCollapsed()) {
+      this.collapseSidebar.emit(true);
+    }
+  }
+
   toggleCollapse(): void {
-    this.changeIsLeftSidebarCollapsed.emit(!this.isLeftSidebarCollapsed());
+    this.collapseSidebar.emit(!this.isLeftSidebarCollapsed());
   }
 }
