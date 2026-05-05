@@ -1,0 +1,38 @@
+<div class="scene">
+  <div class="card" [class.flipped]="isFlipped">
+    <!-- FRONT -->
+    <div class="card-face front">
+      <h2>Logowanie</h2>
+
+      <form>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Hasło" />
+
+        <button type="submit">Zaloguj</button>
+      </form>
+
+      <p>
+        Nie masz konta?
+        <button type="button" (click)="flipCard()">Zarejestruj się</button>
+      </p>
+    </div>
+
+    <!-- BACK -->
+    <div class="card-face back">
+      <h2>Rejestracja</h2>
+
+      <form>
+        <input type="text" placeholder="Nazwa użytkownika" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Hasło" />
+
+        <button type="submit">Utwórz konto</button>
+      </form>
+
+      <p>
+        Masz już konto?
+        <button type="button" (click)="flipCard()">Zaloguj się</button>
+      </p>
+    </div>
+  </div>
+</div>
