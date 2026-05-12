@@ -1,38 +1,88 @@
-<div class="scene">
-  <div class="card" [class.flipped]="isFlipped">
-    <!-- FRONT -->
-    <div class="card-face front">
-      <h2>Logowanie</h2>
+<form [formGroup]="loginRegisterForm">
+  <div class="container">
+    <div class="card" [class.flipped]="isFlipped">
+      <!-- FRONT -->
 
-      <form>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Hasło" />
+      <div class="card-face front">
+        <h2>Login</h2>
+        <div class="card__inputs">
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter email" />
+          </mat-form-field>
+          <app-form-validation
+            [control]="loginRegisterForm.get('email')!"
+          ></app-form-validation>
 
-        <button type="submit">Zaloguj</button>
-      </form>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Enter password"
+            />
+          </mat-form-field>
+          <app-form-validation
+            [control]="loginRegisterForm.get('password')!"
+          ></app-form-validation>
+        </div>
 
-      <p>
-        Nie masz konta?
-        <button type="button" (click)="flipCard()">Zarejestruj się</button>
-      </p>
-    </div>
+        <div class="card__buttons">
+          <button mat-flat-button type="submit">Log in</button>
 
-    <!-- BACK -->
-    <div class="card-face back">
-      <h2>Rejestracja</h2>
+          <button mat-flat-button type="button" (click)="flipCard()">
+            Sign up
+          </button>
+        </div>
+      </div>
 
-      <form>
-        <input type="text" placeholder="Nazwa użytkownika" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Hasło" />
+      <!-- BACK -->
+      <div class="card-face back">
+        <h2>Registration</h2>
+        <div class="card__inputs">
+          <mat-form-field>
+            <mat-label>User name</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              placeholder="Enter user name"
+            />
+          </mat-form-field>
+          <app-form-validation
+            [control]="loginRegisterForm.get('name')!"
+          ></app-form-validation>
 
-        <button type="submit">Utwórz konto</button>
-      </form>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter email" />
+          </mat-form-field>
+          <app-form-validation
+            [control]="loginRegisterForm.get('email')!"
+          ></app-form-validation>
 
-      <p>
-        Masz już konto?
-        <button type="button" (click)="flipCard()">Zaloguj się</button>
-      </p>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Enter password"
+            />
+          </mat-form-field>
+          <app-form-validation
+            [control]="loginRegisterForm.get('password')!"
+          ></app-form-validation>
+        </div>
+
+        <div class="card__buttons">
+          <button mat-flat-button type="submit">Create an account</button>
+
+          <button mat-flat-button type="button" (click)="flipCard()">
+            Log in
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</form>
