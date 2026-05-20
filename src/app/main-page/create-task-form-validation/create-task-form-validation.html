@@ -25,4 +25,8 @@
 <!-- Max number value -->
 @if (control().errors?.['max']) {
 <div class="error">Max length: {{ control().errors?.['max']?.max }}</div>
-} }
+}
+<!-- Password mismatch -->
+@if (control().errors?.['passwordMismatch']) {
+<div class="error">Passwords do not match.</div>
+}}
