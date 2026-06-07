@@ -92,5 +92,3 @@ export const tasksStore = signalStore(
     },
   }),
 );
-
-//TODO: Napisać sobie notki o metodach ze store i jak działają (może z przykładami - who knows)

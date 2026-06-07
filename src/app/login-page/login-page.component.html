@@ -1,0 +1,195 @@
+<form [formGroup]="loginRegisterForm">
+  <div class="container">
+    <div class="card" [class.flipped]="isFlipped()">
+      <!-- FRONT -->
+      <div class="card__container">
+        <div class="card__container__content">
+          <div class="card__left">
+            <div class="card__header-block">
+              <div class="card__header">Log in and stay in control</div>
+              <div class="card__subheader">
+                Log in to continue collaborating with your team and manage
+                tasks.
+              </div>
+            </div>
+            <div class="card__inputs">
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" />
+              </mat-form-field>
+              <app-form-validation
+                [control]="loginRegisterForm.get('email')!"
+              ></app-form-validation>
+
+              <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" />
+              </mat-form-field>
+              <app-form-validation
+                [control]="loginRegisterForm.get('password')!"
+              ></app-form-validation>
+            </div>
+
+            <div class="card__buttons">
+              <button mat-flat-button type="submit">Log in</button>
+              <button mat-flat-button type="button" (click)="flipCard()">
+                Sign up
+              </button>
+            </div>
+          </div>
+
+          <mat-divider vertical class="card-divider"></mat-divider>
+
+          <div class="card__right">
+            <img src="assets/login.png" alt="Login image" />
+          </div>
+        </div>
+      </div>
+
+      <!-- BACK -->
+      <div class="card-face back">
+        <div class="card-face__content">
+          <div class="card__left">
+            <div class="card__header-block">
+              <div class="card__header">Create an account and get started</div>
+              <div class="card__subheader">
+                Join a team, create tasks, and achieve goals together with
+                others.
+              </div>
+            </div>
+            <div class="card__inputs">
+              <div class="card__double-input-row">
+                <div class="input-block">
+                  <mat-form-field>
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="firstName" />
+                  </mat-form-field>
+                  <app-form-validation
+                    [control]="loginRegisterForm.get('firstName')!"
+                  ></app-form-validation>
+                </div>
+
+                <div class="input-block">
+                  <mat-form-field>
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="lastName" />
+                  </mat-form-field>
+                  <app-form-validation
+                    [control]="loginRegisterForm.get('lastName')!"
+                  ></app-form-validation>
+                </div>
+              </div>
+              <mat-form-field>
+                <mat-label>User's nickname</mat-label>
+                <input matInput formControlName="nickname" />
+              </mat-form-field>
+              <app-form-validation
+                [control]="loginRegisterForm.get('nickname')!"
+              ></app-form-validation>
+
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" />
+              </mat-form-field>
+              <app-form-validation
+                [control]="loginRegisterForm.get('email')!"
+              ></app-form-validation>
+
+              <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input
+                  matInput
+                  [type]="hide() ? 'password' : 'text'"
+                  formControlName="password"
+                />
+
+                <button
+                  mat-icon-button
+                  matSuffix
+                  type="button"
+                  aria-label="Toggle password visibility"
+                  (click)="hide.set(!hide())"
+                >
+                  <mat-icon>{{
+                    hide() ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+
+                <button
+                  mat-icon-button
+                  matSuffix
+                  type="button"
+                  matTooltip="A strong password should include at least:
+                        - 1 uppercase letter
+                        - 1 lowercase letter
+                        - 1 number
+                        - 1 special character"
+                  matTooltipPosition="right"
+                  matTooltipClass="multiline-password-tooltip"
+                  aria-label="Password requirements"
+                >
+                  <mat-icon>help</mat-icon>
+                </button>
+              </mat-form-field>
+              <app-form-validation
+                [control]="loginRegisterForm.get('password')!"
+              ></app-form-validation>
+              <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input
+                  matInput
+                  [type]="hide() ? 'password' : 'text'"
+                  formControlName="confirmPassword"
+                />
+                <button
+                  mat-icon-button
+                  type="button"
+                  matSuffix
+                  aria-label="Toggle password visibility"
+                  (click)="hide.set(!hide())"
+                >
+                  <mat-icon>{{
+                    hide() ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+              </mat-form-field>
+              <app-form-validation
+                [control]="loginRegisterForm.get('confirmPassword')!"
+              ></app-form-validation>
+            </div>
+
+            <div class="card__buttons">
+              <button
+                mat-flat-button
+                type="submit"
+                [disabled]="isSubmitting()"
+                (click)="registerUser()"
+              >
+                Create an account
+              </button>
+              <button
+                mat-flat-button
+                type="button"
+                [disabled]="isSubmitting()"
+                (click)="flipCard()"
+              >
+                Log in
+              </button>
+            </div>
+          </div>
+
+          <mat-divider vertical class="card-divider"></mat-divider>
+
+          <div class="card__right">
+            <img src="assets/registration.png" alt="Register image" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- TODO:
+  - ogarnięcie handlera i rzeczy około errorów sytuacyjnych
+  - usunięcie consolek i debuggerów
+-->

@@ -49,8 +49,6 @@ export class LeftSidebarComponent {
   @HostListener('document:click', ['$event'])
   collapseMenuAfterClick(event: MouseEvent) {
     const mouseClickOnMenu = this.el.nativeElement.contains(event.target);
-    console.log(this.el.nativeElement);
-    console.log(event.target);
     if (!mouseClickOnMenu && !this.isLeftSidebarCollapsed()) {
       this.collapseSidebar.emit(true);
     }

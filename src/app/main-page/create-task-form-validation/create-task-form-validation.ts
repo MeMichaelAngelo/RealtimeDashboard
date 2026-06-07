@@ -4,6 +4,7 @@ import {
   ReactiveFormsModule,
   AbstractControl,
 } from '@angular/forms';
+import { strongPasswordRegexpSchema } from '../../password-regex/password-regex';
 
 @Component({
   selector: 'app-form-validation',
@@ -15,4 +16,5 @@ import {
 })
 export class CreateTaskFormValidationComponent {
   control = input.required<AbstractControl>();
+  strongPasswordRegexpSchema = strongPasswordRegexpSchema;
 }

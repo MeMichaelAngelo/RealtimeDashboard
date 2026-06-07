@@ -25,4 +25,12 @@
 <!-- Max number value -->
 @if (control().errors?.['max']) {
 <div class="error">Max length: {{ control().errors?.['max']?.max }}</div>
-} }
+}
+<!-- Pattern error -->
+@if (control().errors?.['pattern']) {
+<div class="error">Invalid email format.</div>
+}
+<!-- Password mismatch -->
+@if (control().errors?.['passwordMismatch']) {
+<div class="error">Passwords do not match.</div>
+}}
