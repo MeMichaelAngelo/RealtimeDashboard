@@ -10,7 +10,6 @@ export class loginRegisterService {
   constructor(private http: HttpClient) {}
 
   registerUser(newUser: User): Observable<User> {
-    console.log('FE - Registering user:', newUser);
     return this.http.post<User>(`${this.api}/register`, newUser);
   }
 

@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CreateTaskFormValidationComponent } from '../main-page/create-task-form-validation/create-task-form-validation';
 import { strongPasswordRegexpSchema } from '../password-regex/password-regex';
 import { loginRegisterService } from '../main-service/loginRegister.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
@@ -41,6 +42,7 @@ import { loginRegisterService } from '../main-service/loginRegister.service';
     MatDividerModule,
     MatIconModule,
     MatTooltipModule,
+    CommonModule,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,10 +69,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   toggleFormMode(): void {
-    const { name, firstName, lastName, confirmPassword } =
+    const { nickname, firstName, lastName, confirmPassword } =
       this.loginRegisterForm.controls;
 
-    const controls = [name, firstName, lastName, confirmPassword];
+    const controls = [nickname, firstName, lastName, confirmPassword];
 
     controls.forEach((control) =>
       this.isFlipped() ? control.enable() : control.disable(),
@@ -116,7 +118,7 @@ export class LoginPageComponent implements OnInit {
             Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/),
           ],
         ],
-        name: [
+        nickname: [
           '',
           [
             Validators.required,
@@ -162,9 +164,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   registerUser(): void {
-    //nie działa rejestracja, bo "Bad request"
-    //ogarnąć serwis z pushem danych na bazy + logowanie
-
     //interceptor w następnym pushu
     if (!this.loginRegisterForm.valid || this.isSubmitting()) {
       this.loginRegisterForm.markAllAsTouched();
@@ -172,17 +171,20 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.isSubmitting.set(true);
-    this.loginRegisterService
-      .registerUser(this.loginRegisterForm.getRawValue())
-      .subscribe({
-        next: (response) => {
-          console.log('User registered successfully:', response);
-          this.isSubmitting.set(false);
-        },
-        error: (error) => {
-          console.error('Error registering user:', error);
-          this.isSubmitting.set(false);
-        },
-      });
+
+    const { confirmPassword, ...registerData } =
+      this.loginRegisterForm.getRawValue();
+
+    this.loginRegisterService.registerUser(registerData).subscribe({
+      next: (response) => {
+        this.isSubmitting.set(false);
+        //dać snackbar z success
+      },
+      error: (error) => {
+        console.error('Error registering user:', error);
+        this.isSubmitting.set(false);
+        //snackbar z errorem
+      },
+    });
   }
 }
