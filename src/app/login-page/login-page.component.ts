@@ -22,7 +22,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CreateTaskFormValidationComponent } from '../main-page/create-task-form-validation/create-task-form-validation';
-import { strongPasswordRegexpSchema } from '../password-regex/password-regex';
+import {
+  strongPasswordRegexpSchema,
+  emailRegexpSchema,
+} from '../regexes-list/regexes';
 import { loginRegisterService } from '../main-service/loginRegister.service';
 import { CommonModule } from '@angular/common';
 
@@ -55,28 +58,18 @@ export class LoginPageComponent implements OnInit {
 
   isFlipped = signal(false);
   hide = signal(true);
-  loginRegisterForm!: FormGroup;
+  loginMode = signal<'email' | 'nickname'>('email');
+  loginForm!: FormGroup;
+  registerForm!: FormGroup;
   readonly isSubmitting = signal(false);
 
   ngOnInit() {
-    this.loginOrRegisterUserForm();
-    this.toggleFormMode();
+    this.createLoginForm();
+    this.createRegisterForm();
   }
 
   flipCard(): void {
     this.isFlipped.set(!this.isFlipped());
-    this.toggleFormMode();
-  }
-
-  toggleFormMode(): void {
-    const { nickname, firstName, lastName, confirmPassword } =
-      this.loginRegisterForm.controls;
-
-    const controls = [nickname, firstName, lastName, confirmPassword];
-
-    controls.forEach((control) =>
-      this.isFlipped() ? control.enable() : control.disable(),
-    );
   }
 
   passwordMatchValidator(): ValidatorFn {
@@ -108,15 +101,22 @@ export class LoginPageComponent implements OnInit {
     };
   }
 
-  loginOrRegisterUserForm(): void {
-    this.loginRegisterForm = this.fb.group(
+  createLoginForm(): void {
+    this.loginForm = this.fb.group(
+      {
+        emailOrNickname: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+      },
+      { updateOn: 'blur' },
+    );
+  }
+
+  createRegisterForm(): void {
+    this.registerForm = this.fb.group(
       {
         email: [
           '',
-          [
-            Validators.required,
-            Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/),
-          ],
+          [Validators.required, Validators.pattern(emailRegexpSchema)],
         ],
         nickname: [
           '',
@@ -164,16 +164,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   registerUser(): void {
-    //interceptor w następnym pushu
-    if (!this.loginRegisterForm.valid || this.isSubmitting()) {
-      this.loginRegisterForm.markAllAsTouched();
+    if (!this.registerForm.valid || this.isSubmitting()) {
+      this.registerForm.markAllAsTouched();
       return;
     }
 
     this.isSubmitting.set(true);
 
     const { confirmPassword, ...registerData } =
-      this.loginRegisterForm.getRawValue();
+      this.registerForm.getRawValue();
 
     this.loginRegisterService.registerUser(registerData).subscribe({
       next: (response) => {
@@ -186,5 +185,27 @@ export class LoginPageComponent implements OnInit {
         //snackbar z errorem
       },
     });
+  }
+
+  logInUser(): void {
+    if (!this.loginForm.valid || this.isSubmitting()) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.loginRegisterService
+      .loginUser(this.loginForm.getRawValue())
+      .subscribe({
+        next: (response) => {
+          this.isSubmitting.set(false);
+          //dać snackbar z success
+        },
+        error: (error) => {
+          console.error('Error logging in user:', error);
+          this.isSubmitting.set(false);
+          //snackbar z errorem
+        },
+      });
   }
 }

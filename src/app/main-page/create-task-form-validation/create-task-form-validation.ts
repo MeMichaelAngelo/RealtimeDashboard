@@ -4,7 +4,7 @@ import {
   ReactiveFormsModule,
   AbstractControl,
 } from '@angular/forms';
-import { strongPasswordRegexpSchema } from '../../password-regex/password-regex';
+import { strongPasswordRegexpSchema } from '../../regexes-list/regexes';
 
 @Component({
   selector: 'app-form-validation',

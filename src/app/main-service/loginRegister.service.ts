@@ -13,7 +13,7 @@ export class loginRegisterService {
     return this.http.post<User>(`${this.api}/register`, newUser);
   }
 
-  loginUser(user: User) {
-    return this.http.post(`${this.api}/login`, user);
+  loginUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.api}/login`, user);
   }
 }
