@@ -177,12 +177,12 @@ export class LoginPageComponent implements OnInit {
     this.loginRegisterService.registerUser(registerData).subscribe({
       next: (response) => {
         this.isSubmitting.set(false);
-        //dać snackbar z success
+        //podpiąć snackbar z snackbarService z successem + refresh strony (ma być widok z logowaniem)
       },
       error: (error) => {
         console.error('Error registering user:', error);
         this.isSubmitting.set(false);
-        //snackbar z errorem
+        //podpiąć snackbar z snackbarService z errorem (user istnieje, coś takiego)
       },
     });
   }
@@ -199,12 +199,12 @@ export class LoginPageComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.isSubmitting.set(false);
-          //dać snackbar z success
+          //podpiąć snackbar z snackbarService z successem + redirect do main page
         },
         error: (error) => {
           console.error('Error logging in user:', error);
           this.isSubmitting.set(false);
-          //snackbar z errorem
+          //podpiąć snackbar z snackbarService z errorem
         },
       });
   }
