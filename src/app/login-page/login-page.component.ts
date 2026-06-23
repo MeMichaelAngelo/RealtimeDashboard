@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   OnInit,
   signal,
   ViewEncapsulation,
@@ -28,6 +29,7 @@ import {
 } from '../regexes-list/regexes';
 import { loginRegisterService } from '../main-service/loginRegister.service';
 import { CommonModule } from '@angular/common';
+import { SnackbarService } from '../main-service/snackbar.service';
 
 @Component({
   selector: 'app-login-page',
@@ -55,6 +57,8 @@ export class LoginPageComponent implements OnInit {
     private fb: FormBuilder,
     private loginRegisterService: loginRegisterService,
   ) {}
+
+  private snackBarService = inject(SnackbarService);
 
   isFlipped = signal(false);
   hide = signal(true);
@@ -177,12 +181,18 @@ export class LoginPageComponent implements OnInit {
     this.loginRegisterService.registerUser(registerData).subscribe({
       next: (response) => {
         this.isSubmitting.set(false);
-        //podpiąć snackbar z snackbarService z successem + refresh strony (ma być widok z logowaniem)
+        this.snackBarService.displaySnackbar(
+          'User registered successfully!',
+          'success',
+        );
       },
       error: (error) => {
         console.error('Error registering user:', error);
         this.isSubmitting.set(false);
-        //podpiąć snackbar z snackbarService z errorem (user istnieje, coś takiego)
+        this.snackBarService.displaySnackbar(
+          'Error registering user. User already exists.',
+          'error',
+        );
       },
     });
   }
@@ -199,12 +209,16 @@ export class LoginPageComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.isSubmitting.set(false);
-          //podpiąć snackbar z snackbarService z successem + redirect do main page
+          this.snackBarService.displaySnackbar('Login successful!', 'success');
+          //Zebrać z response token i zapisać go w localStorage (trzeba go użyć do guardów)
         },
         error: (error) => {
           console.error('Error logging in user:', error);
           this.isSubmitting.set(false);
-          //podpiąć snackbar z snackbarService z errorem
+          this.snackBarService.displaySnackbar(
+            'Login failed. Please try again.',
+            'error',
+          );
         },
       });
   }
