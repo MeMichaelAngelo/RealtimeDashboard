@@ -6,6 +6,7 @@ import {
   signal,
   ViewEncapsulation,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   AbstractControl,
   FormBuilder,
@@ -56,6 +57,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loginRegisterService: loginRegisterService,
+    private router: Router,
   ) {}
 
   private snackBarService = inject(SnackbarService);
@@ -204,22 +206,24 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.isSubmitting.set(true);
-    this.loginRegisterService
-      .loginUser(this.loginForm.getRawValue())
-      .subscribe({
-        next: (response) => {
-          this.isSubmitting.set(false);
-          this.snackBarService.displaySnackbar('Login successful!', 'success');
-          //Zebrać z response token i zapisać go w localStorage (trzeba go użyć do guardów)
-        },
-        error: (error) => {
-          console.error('Error logging in user:', error);
-          this.isSubmitting.set(false);
-          this.snackBarService.displaySnackbar(
-            'Login failed. Please try again.',
-            'error',
-          );
-        },
-      });
+
+    const loginData = this.loginForm.getRawValue();
+
+    this.loginRegisterService.loginUser(loginData).subscribe({
+      next: (response) => {
+        this.isSubmitting.set(false);
+        this.snackBarService.displaySnackbar('Login successful!', 'success');
+        console.log('zwrotka z logowania', response);
+        this.router.navigate(['/main-page']);
+      },
+      error: (error) => {
+        console.error('Error logging in user:', error);
+        this.isSubmitting.set(false);
+        this.snackBarService.displaySnackbar(
+          'Login failed. Please try again.',
+          'error',
+        );
+      },
+    });
   }
 }

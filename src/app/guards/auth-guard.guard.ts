@@ -1,18 +1,19 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 
-import { loginRegisterService } from '../main-service/loginRegister.service';
+import { AuthService } from '../main-service/auth.service';
+import { map, tap } from 'rxjs';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  const auth = inject(loginRegisterService);
+export const authGuard: CanActivateFn = () => {
+  const auth = inject(AuthService);
   const router = inject(Router);
 
-  console.log('auth', auth);
-  console.log('router', router);
-
-  // TODO:
-  // - zrobić guarda i sprawdzić czy działa
-  // - zobaczyć jak poprawnie zaimplementować route w podkomponentach (main-page + jego dzieci)
-
-  return true;
+  return auth.isUserLoggedIn().pipe(
+    tap((isLogged) => {
+      if (!isLogged) {
+        router.navigate(['/login-page']);
+      }
+    }),
+    map((isLogged) => isLogged),
+  );
 };
